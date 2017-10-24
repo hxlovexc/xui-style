@@ -1,0 +1,217 @@
+/*
+  * @Module: 导航
+ * @Author: 小缘
+ * @Date: 2017-07-29 23:25:59
+ */
+// 变量
+@import '../variable.scss';
+
+.x-menu {
+  display: block;
+  position: relative;
+
+  .x-menu-list {
+    & > li {
+      display: block;
+      cursor: pointer;
+      
+      .x-menu-item-title > i {
+        margin-right: $x-menu-item-icon-right;
+      }
+
+      .x-subment-icon i {
+        display: inline-block;
+        transition: transform 0.2s;
+      }
+    }
+
+    // 显示状态
+    .x-show-submenu {
+      & > .x-menu-item-title .x-subment-icon i {
+        transform: rotate(180deg);
+      }
+    }
+
+    .x-menu-item-title {
+      font-size: $x-menu-item-font-size;
+    }
+  }
+
+  &.x-menu-level .x-submenu-box,
+  &.x-menu-baise {
+    .x-menu-item-title {
+      transition: color 0.1s;
+    }
+  }
+  
+  // 白色
+  &.x-menu-baise {
+    background: #fff;
+  }
+}
+
+// 选中和二次菜单hover字体颜色
+.x-menu-baise .x-menu-active > .x-menu-item-title,
+.x-menu-baise .x-menu-item-title:hover,
+.x-menu-baise .x-menu-active .x-submenu-active,
+.x-menu-level .x-menu-active .x-submenu-active {
+  color: $color-primary;
+}
+
+.x-menu .x-menu-active > .x-menu-item-title,
+.x-menu-baise .x-menu-active .x-submenu-active .x-menu-item-title {
+  opacity: 1;
+}
+
+// 水平
+.x-menu-level {
+  box-shadow: 0 2px 4px rgba(0,0,0,.08);
+  border-color: #e4eaec;
+
+  .x-menu-list {
+    & > li {
+      height: $x-level-menu-height;
+      line-height: $x-level-menu-height;
+      float: left;
+
+      .x-menu-item-title {
+        padding: 0 $x-menut-item-padding;
+      }
+    }
+
+    // 二级菜单
+    .x-submenu {
+      position: relative;
+      
+      & > .x-menu-item-title {
+        span {
+          display: inline-block;
+        }
+
+        .x-submenu-title {
+          padding-right: 5px;
+        }
+      }
+
+      .x-submenu-box {
+        min-width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 99;
+        padding-top: 6px;
+
+        ul {
+          background: #fff;
+          overflow: hidden;
+          border-radius: 2px;
+          box-sizing: border-box;
+          border: 1px solid #e2e2e2;
+          box-shadow: 0 1px 6px rgba(0,0,0,.2);
+        }
+
+        li {
+          line-height: $x-level-submenu-item-height;
+
+          .x-menu-item-title {
+            white-space: nowrap;
+
+            &:hover {
+              color: $color-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // 白色
+  &.x-menu-baise {
+    border-bottom: 1px solid $x-menu-baise_border-color;
+  }
+}
+
+// 垂直
+.x-menu-vertical {
+  .x-menu-list {
+    & > li {
+      .x-menu-item-title {
+        position: relative;
+        padding: 0 $x-menut-item-padding;
+
+        & > .x-subment-icon {
+          position: absolute;
+          top: 0;
+          right: $x-menut-item-padding;
+          height: 100%;
+        }
+      }
+
+      // 二级菜单
+      .x-submenu-box {
+        ul li {
+          padding-left: $x-menu-item-font-size;
+        }
+      }
+    }
+  }
+  
+  li {
+    .x-menu-item-title {
+      line-height: $x-vertical-menu-height;
+      opacity: 0.8;
+      transition: opacity 0.1s;
+    }
+
+    &:hover {
+      & > .x-menu-item-title {
+        opacity: 1;
+      }
+    }
+  }
+
+  // 白色
+  &.x-menu-baise {
+    border-right: 1px solid $x-menu-baise_border-color;
+  }
+}
+
+// 主题分类
+@each $type, $color in $colors {
+  .x-menu.x-menu-#{$type} {
+    background: $color;
+
+    .x-menu-list > li {
+      & > .x-menu-item-title {
+        color: #fff;
+      }
+    }
+
+    // 水平
+    &.x-menu-level {
+      .x-menu-list > li {
+        & > .x-menu-item-title {
+          transition: background-color 0.2s;
+        }
+  
+        &:hover > .x-menu-item-title {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+    
+    // 垂直
+    &.x-menu-vertical {
+      .x-submenu-box li {
+        color: #fff;
+      }
+    }
+
+    // 激活状态
+    &.x-menu-level .x-menu-list > .x-menu-active,
+    &.x-menu-vertical .x-menu-list > .x-menu-active > .x-menu-item-title {
+      background-color: rgba(0, 0, 0, 0.2);
+      opacity: 1;
+    }
+  }
+}
